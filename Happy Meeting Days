@@ -1,0 +1,21 @@
+(25 mins)
+fun minMeetingDays(intervals: Array<IntArray>): Int {
+    if (intervals.isEmpty()) return 0
+
+    
+    intervals.sortBy { it[0] }
+    
+    val minHeap = PriorityQueue<Int>()
+
+    for (meeting in intervals) {
+        val start = meeting[0]
+        val end = meeting[1]
+        
+        if (minHeap.isNotEmpty() && start >= minHeap.peek()) {
+            minHeap.poll()
+        }
+        
+        minHeap.add(end)
+    }
+    return minHeap.size
+}
